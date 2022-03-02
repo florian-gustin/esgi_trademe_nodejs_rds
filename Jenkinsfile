@@ -1,19 +1,35 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('Build'){
-  }
-  stage('Tests'){
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'sonarqube';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
+// node {
+//   stage('SCM') {
+//     checkout scm
+//   }
+//   stage('Build'){
+//   }
+//   stage('Tests'){
+//   }
+//   stage('SonarQube Analysis') {
+//     def scannerHome = tool 'sonarqube';
+//     withSonarQubeEnv() {
+//       sh "${scannerHome}/bin/sonar-scanner"
+//     }
+//   }
+//   stage('Quality Gate'){
+//   }
+//   stage('Deploy'){
+//   }
+// }
+
+
+
+pipeline{
+    agent any
+
+    stages{
+        stage("Build"){
+            steps{
+
+            }
+        }
+
     }
-  }
-  stage('Quality Gate'){
-  }
-  stage('Deploy'){
-  }
+
 }
