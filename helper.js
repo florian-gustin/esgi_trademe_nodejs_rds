@@ -9,7 +9,12 @@ function emptyOrRows(rows) {
     return rows;
 }
 
+function sum(a, b) {
+    return a + b;
+}
+
 module.exports = {
     getOffset,
-    emptyOrRows
+    emptyOrRows,
+    sum
 }
