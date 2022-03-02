@@ -26,7 +26,7 @@ pipeline{
     stages{
         stage("SCM"){
             steps{
-                sh 'echo build'
+                checkout scm
             }
         }
         stage("Build"){
