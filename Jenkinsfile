@@ -71,15 +71,16 @@ pipeline{
         }
         stage("Deploy"){
             steps{
-                sh 'npm install -g heroku'
-                sh 'heroku --version'
-                sh 'git add .'
-                sh 'git commit -am "make it better'
-                sh 'git push heroku master'
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'npm install -g heroku'
+                    sh 'heroku --version'
+                    sh 'git add .'
+                    sh 'git commit -am "make it better'
+                    sh 'git push heroku master'
+                }
             }
         }
     }
-
 }
 
 
