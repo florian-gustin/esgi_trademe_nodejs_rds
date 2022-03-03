@@ -19,7 +19,22 @@
 // }
 
 
+pipeline {
+    agent any
 
+    stages {
+        stage('Build') {
+            steps {
+                nodejs(nodeJSInstallationName: 'nodejs', configId: '<config-file-provider-id>') {
+                    sh 'npm config ls'
+                }
+            }
+        }
+    }
+}
+
+
+//
 // pipeline{
 //     agent any
 //
@@ -84,23 +99,23 @@
 //     }
 // }
 
-pipeline {
-    agent any
-    stages {
-        stage('Test') {
-            agent {
-                docker {
-                    image 'maven:3-alpine'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
-            steps {
-                script{
-                    def docker = tool 'myDocker';
-                }
-                sh 'node --version'
-                sh 'echo hello'
-            }
-        }
-    }
-}
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Test') {
+//             agent {
+//                 node {
+//                     image 'node:6-alpine'
+//                     args '-p 3000:3000 -p 5000:5000'
+//                 }
+//             }
+//             steps {
+//                 script{
+//                     def docker = tool 'myDocker';
+//                 }
+//                 sh 'node --version'
+//                 sh 'echo hello'
+//             }
+//         }
+//     }
+// }
