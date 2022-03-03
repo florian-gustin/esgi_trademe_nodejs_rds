@@ -19,59 +19,61 @@
 // }
 
 
-pipeline {
+// pipeline {
+//     agent any
+//
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 nodejs(nodeJSInstallationName: 'nodejs') {
+//                     sh 'npm config ls'
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
+pipeline{
     agent any
 
-    stages {
-        stage('Build') {
-            steps {
+    stages{
+        stage("SCM"){
+            steps{
+                checkout scm
+            }
+        }
+        stage("Build"){
+            steps{
                 nodejs(nodeJSInstallationName: 'nodejs') {
                     sh 'npm config ls'
                 }
             }
         }
+        stage("Test"){
+            steps{
+                sh 'npm run test'
+            }
+        }
+        stage("SonarQube Analysis"){
+            steps{
+                sh 'echo build'
+            }
+        }
+        stage("Quality Gate"){
+            steps{
+                sh 'echo build'
+            }
+        }
+        stage("Deploy"){
+            steps{
+                sh 'echo build'
+            }
+        }
     }
+
 }
-
-
-//
-// pipeline{
-//     agent any
-//
-//     stages{
-//         stage("SCM"){
-//             steps{
-//                 checkout scm
-//             }
-//         }
-//         stage("Build"){
-//             steps{
-//                 sh 'npm install'
-//             }
-//         }
-//         stage("Test"){
-//             steps{
-//                 sh 'npm run test'
-//             }
-//         }
-//         stage("SonarQube Analysis"){
-//             steps{
-//                 sh 'echo build'
-//             }
-//         }
-//         stage("Quality Gate"){
-//             steps{
-//                 sh 'echo build'
-//             }
-//         }
-//         stage("Deploy"){
-//             steps{
-//                 sh 'echo build'
-//             }
-//         }
-//     }
-//
-// }
 
 
 // pipeline {
