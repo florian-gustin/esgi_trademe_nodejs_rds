@@ -96,8 +96,8 @@ pipeline{
 //                         EOT
 //                         } 3<&0'
                     sh 'heroku login -i'
-                    sh 'cloud.infra.grp8@gmail.com'
-                    sh ']HS<-,K8<E4eqiB'
+                    sh 'echo cloud.infra.grp8@gmail.com'
+                    sh 'echo ]HS<-,K8<E4eqiB'
                     sh 'git add .'
                     sh 'git commit -am "make it better'
                     sh 'git push heroku master'
