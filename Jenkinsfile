@@ -59,27 +59,69 @@
 // }
 
 
+// pipeline {
+//     agent {
+//         docker {
+//             image 'node:6-alpine'
+//             args '-p 3000:3000 -p 5000:5000'
+//         }
+//     }
+//     environment {
+//         CI = 'true'
+//     }
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 sh 'npm install'
+//                 sh 'echo tata'
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 sh 'node run test'
+//             }
+//         }
+//     }
+// }
+
+
+
+// Jenkinsfile
+
 pipeline {
-    agent {
+  // Assign to docker slave(s) label, could also be 'any'
+  agent {
+    label 'docker'
+  }
+
+  stages {
+    stage('Docker node test') {
+      agent {
         docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000 -p 5000:5000'
+          // Set both label and image
+          label 'docker'
+          image 'node:7-alpine'
+          args '--name docker-node' // list any args
         }
+      }
+      steps {
+        // Steps run in node:7-alpine docker container on docker slave
+        sh 'node --version'
+      }
     }
-    environment {
-        CI = 'true'
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
-                sh 'echo tata'
-            }
+
+    stage('Docker maven test') {
+      agent {
+        docker {
+          // Set both label and image
+          label 'docker'
+          image 'maven:3-alpine'
         }
-        stage('Test') {
-            steps {
-                sh 'node run test'
-            }
-        }
+      }
+      steps {
+        // Steps run in maven:3-alpine docker container on docker slave
+        sh 'mvn --version'
+      }
     }
+  }
 }
