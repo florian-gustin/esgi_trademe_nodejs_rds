@@ -31,12 +31,12 @@ pipeline{
         }
         stage("Build"){
             steps{
-                sh 'echo build'
+                sh 'npm install'
             }
         }
         stage("Test"){
             steps{
-                sh 'echo build'
+                sh 'npm run test'
             }
         }
         stage("SonarQube Analysis"){
