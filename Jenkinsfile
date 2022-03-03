@@ -49,6 +49,8 @@ pipeline{
             steps{
                 nodejs(nodeJSInstallationName: 'nodejs') {
                     sh 'npm config ls'
+                    sh 'echo $pwd'
+                    sh '$pwd'
                 }
             }
         }
