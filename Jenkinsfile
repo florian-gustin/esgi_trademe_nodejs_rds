@@ -61,12 +61,12 @@ pipeline{
         }
         stage("SonarQube Analysis"){
             steps{
-                sh 'SonarQube Analysis'
+                sh 'echo SonarQube Analysis'
             }
         }
         stage("Quality Gate"){
             steps{
-                sh 'Quality Gate'
+                sh 'echo Quality Gate'
             }
         }
         stage("Deploy"){
