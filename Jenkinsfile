@@ -48,9 +48,7 @@ pipeline{
         stage("Build"){
             steps{
                 nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'npm config ls'
-                    sh 'echo $PWD'
-                    sh 'pwd'
+                    sh 'npm i'
                 }
             }
         }
@@ -73,7 +71,11 @@ pipeline{
         }
         stage("Deploy"){
             steps{
-                sh 'echo build'
+                sh 'npm install -g heroku'
+                sh 'heroku --version'
+                sh 'git add .'
+                sh 'git commit -am "make it better'
+                sh 'git push heroku master'
             }
         }
     }
