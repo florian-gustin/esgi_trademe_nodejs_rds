@@ -38,6 +38,7 @@
 pipeline{
     agent any
 
+
     stages{
         stage("SCM"){
             steps{
@@ -53,7 +54,9 @@ pipeline{
         }
         stage("Test"){
             steps{
-                sh 'npm run test'
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    sh 'npm run test'
+                }
             }
         }
         stage("SonarQube Analysis"){
