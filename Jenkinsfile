@@ -88,6 +88,9 @@ pipeline {
     agent any
     stages {
         stage('Test') {
+            script{
+                def docker = tool 'myDocker';
+            }
             agent {
                 docker {
                     image 'maven:3-alpine'
