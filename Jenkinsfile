@@ -73,7 +73,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
-                sh 'echo toto'
+                sh 'echo tota'
             }
         }
         stage('Test') {
