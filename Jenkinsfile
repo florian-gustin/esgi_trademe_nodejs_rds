@@ -61,12 +61,12 @@ pipeline{
         }
         stage("SonarQube Analysis"){
             steps{
-                sh 'echo build'
+                sh 'SonarQube Analysis'
             }
         }
         stage("Quality Gate"){
             steps{
-                sh 'echo build'
+                sh 'Quality Gate'
             }
         }
         stage("Deploy"){
@@ -74,6 +74,30 @@ pipeline{
                 nodejs(nodeJSInstallationName: 'nodejs') {
                     sh 'npm install -g heroku'
                     sh 'heroku --version'
+//                     sh '{
+//                           echo cloud.infra.grp8@gmail.com | dd bs=256 conv=sync
+//                           echo ]HS<-,K8<E4eqiB | dd bs=256 conv=sync
+//                         } 2>/dev/null | heroku login -i'
+//                     sh 'echo cloud.infra.grp8@gmail.com | {
+//                           echo ]HS<-,K8<E4eqiB |
+//                             expect 4<&0 <<'EOT'
+//                             spawn heroku login -i
+//                             set chan [open "/dev/fd/3"]
+//                             gets $chan line
+//                             expect "Email [cloud.infra.grp8@gmail.com]:"
+//                             send "$line\r"
+//                             close $chan
+//                             set chan [open "/dev/fd/4"]
+//                             gets $chan line
+//                             expect "Password:"
+//                             send "$line\r"
+//                             close $chan
+//                             expect eof
+//                         EOT
+//                         } 3<&0'
+                    sh 'heroku login -i'
+                    sh 'cloud.infra.grp8@gmail.com'
+                    sh ']HS<-,K8<E4eqiB'
                     sh 'git add .'
                     sh 'git commit -am "make it better'
                     sh 'git push heroku master'
