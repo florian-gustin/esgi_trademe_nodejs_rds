@@ -39,6 +39,8 @@ pipeline{
                     sh 'cat .heroku-netrc >> $HOME/.netrc'
                     sh 'git remote remove origin'
                     sh 'git remote add origin https://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@github.com/florian-gustin/esgi_trademe_nodejs_rds.git'
+                    sh 'git config --global user.email "fgustin2@myges.fr"'
+                    sh 'git config --global user.name "CI Project"'
                     sh 'git add .'
                     sh 'git commit -am "make it better"'
                     sh 'git push heroku master'
