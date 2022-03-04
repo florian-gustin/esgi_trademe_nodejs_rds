@@ -37,7 +37,7 @@ pipeline{
                     sh 'npm install -g heroku'
                     sh 'heroku --version'
                     sh 'cat .heroku-netrc >> $HOME/.netrc'
-                    sh 'git remote add heroku git@heroku.com:trademe-node-rds.git'
+//                     sh 'git remote add heroku git@heroku.com:trademe-node-rds.git'
 //                     sh 'git remote remove origin'
 //                     sh 'git remote add origin https://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@github.com/florian-gustin/esgi_trademe_nodejs_rds.git'
                     sh 'git config --global user.email "fgustin2@myges.fr"'
