@@ -1,0 +1,6 @@
+machine api.heroku.com
+  login cloud.infra.grp8@gmail.com
+  password 52b9a9c4-b6d5-40f0-9bd1-2defcec4325d
+machine git.heroku.com
+  login cloud.infra.grp8@gmail.com
+  password 52b9a9c4-b6d5-40f0-9bd1-2defcec4325d

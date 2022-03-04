@@ -95,9 +95,7 @@ pipeline{
 //                             expect eof
 //                         EOT
 //                         } 3<&0'
-                    sh 'heroku login -i'
-                    sh 'echo cloud.infra.grp8@gmail.com'
-                    sh 'echo ]HS<-,K8<E4eqiB'
+                    sh 'cat .heroku-netrc >> $HOME/.netrc'
                     sh 'git add .'
                     sh 'git commit -am "make it better'
                     sh 'git push heroku master'
