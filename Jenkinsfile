@@ -97,7 +97,7 @@ pipeline{
 //                         } 3<&0'
                     sh 'cat .heroku-netrc >> $HOME/.netrc'
                     sh 'git add .'
-                    sh 'git commit -am "make it better'
+                    sh 'git commit -am "make it better"'
                     sh 'git push heroku master'
                 }
             }
