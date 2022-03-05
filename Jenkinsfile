@@ -7,46 +7,53 @@ pipeline{
                 checkout scm
             }
         }
-        stage("Build"){
+        stage("Install"){
             steps{
                 nodejs(nodeJSInstallationName: 'nodejs') {
                     sh 'npm i'
+                    sh 'npm i -g sonar-scanner'
                 }
             }
         }
         stage("Test"){
             steps{
                 nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'npm run test'
+                    sh 'npm test'
                 }
             }
         }
-        stage("SonarQube Analysis"){
-            steps{
-                sh 'echo SonarQube Analysis'
+        stage('SonarQube Analysis') {
+            when {
+                not {
+                    changeRequest()
+                }
+            }
+            steps {
+                script {
+                    nodejs(nodeJSInstallationName: 'nodejs') {
+                        sh "sonar-scanner -Dsonar.projectKey=trademe_node_rds -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.login=42da72506e9f28107cff53275b6354a42ff1edef -Dsonar.host.url=http://192.168.1.3:9000"
+                    }
+                }
             }
         }
-        stage("Quality Gate"){
-            steps{
-                sh 'echo Quality Gate'
+        stage('SonarQube PR Analysis') {
+             when {
+                 changeRequest()
+             }
+            steps {
+                script {
+                    nodejs(nodeJSInstallationName: 'nodejs') {
+                        sh "sonar-scanner -Dsonar.projectKey=trademe_node_rds -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.login=42da72506e9f28107cff53275b6354a42ff1edef -Dsonar.host.url=http://192.168.1.3:9000"
+                    }
+                }
             }
         }
         stage("Deploy"){
+            when {
+                branch 'main'
+            }
             steps{
-                nodejs(nodeJSInstallationName: 'nodejs') {
-                    sh 'npm install -g heroku'
-                    sh 'heroku --version'
-                    sh 'cat .heroku-netrc >> $HOME/.netrc'
-//                     sh 'git remote add heroku git@heroku.com:trademe-node-rds.git'
-//                     sh 'git remote remove origin'
-//                     sh 'git remote add origin https://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@github.com/florian-gustin/esgi_trademe_nodejs_rds.git'
-                    sh 'git config --global user.email "fgustin2@myges.fr"'
-                    sh 'git config --global user.name "CI Project"'
-                    sh 'echo date >> .version'
-                    sh 'git add .'
-                    sh 'git commit -am "make it better"'
-                    sh 'git push heroku master'
-                }
+                sh 'ssh esgi@192.168.1.14 -t " /home/esgi/.npm-global/bin/pm2 start" '
             }
         }
     }
